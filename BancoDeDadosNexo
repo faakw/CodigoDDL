@@ -1,0 +1,56 @@
+CREATE DATABASE nexo;
+USE nexo;
+
+CREATE TABLE usuario (
+    id_usuario INT AUTO_INCREMENT,
+    nome VARCHAR(100) NOT NULL,
+    email VARCHAR(150) NOT NULL UNIQUE,
+    senha VARCHAR(255) NOT NULL,
+    tipo_usuario VARCHAR(30) NOT NULL,
+
+    PRIMARY KEY (id_usuario)
+);
+
+CREATE TABLE categoria (
+    id_categoria INT AUTO_INCREMENT,
+    nome VARCHAR(100) NOT NULL,
+    descricao VARCHAR(255),
+
+    PRIMARY KEY (id_categoria)
+);
+
+CREATE TABLE localizacao (
+    id_localizacao INT AUTO_INCREMENT,
+    nome VARCHAR(100) NOT NULL,
+    bloco VARCHAR(50),
+    andar VARCHAR(20),
+    sala VARCHAR(20),
+    descricao VARCHAR(255),
+
+    PRIMARY KEY (id_localizacao)
+);
+
+CREATE TABLE solicitacao (
+    id_solicitacao INT AUTO_INCREMENT,
+    titulo VARCHAR(150) NOT NULL,
+    descricao TEXT NOT NULL,
+    tipo VARCHAR(30) NOT NULL,
+    prioridade VARCHAR(20) NOT NULL,
+    status VARCHAR(30) NOT NULL,
+    imagem VARCHAR(255),
+
+    id_usuario INT NOT NULL,
+    id_categoria INT NOT NULL,
+    id_localizacao INT NOT NULL,
+
+    PRIMARY KEY (id_solicitacao),
+
+    FOREIGN KEY (id_usuario)
+        REFERENCES usuario(id_usuario),
+
+    FOREIGN KEY (id_categoria)
+        REFERENCES categoria(id_categoria),
+
+    FOREIGN KEY (id_localizacao)
+        REFERENCES localizacao(id_localizacao)
+);
